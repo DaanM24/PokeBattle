@@ -5,8 +5,8 @@
     $opposingPokemon;
 
     
-    $pikachu =  new pokemon('Pikachu', 'Electric', 60, 60, new attack('thunderbolt', 50, 'Electric'), new attack('tackle', 20, 'Normal'), new weakness('fire', 1.5), new resistance('fighting', 10) );
-    $charmeleon =  new pokemon('Charmeleon', 'Fire', 60, 60, new attack('flare', 30, 'Fire'), new attack('headbutt', 10, 'Normal'), new weakness('water', 2), new resistance('electric', 10) );
+    $pikachu =  new pokemon('Pikachu', new EnergyType('Electric'), 60, 60, new attack('thunderbolt', 50, 'Electric'), new attack('tackle', 20, 'Normal'), new weakness('Fire', 1.5), new resistance('Fighting', 10) );
+    $charmeleon =  new pokemon('Charmeleon', new EnergyType('Fire'), 60, 60, new attack('flare', 30, 'Fire'), new attack('headbutt', 10, 'Normal'), new weakness('Water', 2), new resistance('Electric', 10) );
     array_push($pokemon, $pikachu, $charmeleon);
 
 
@@ -24,15 +24,15 @@
 
     function choosePokemon1(){
         global $pokemon;
-        $selectedPokemon = $pokemon[0]->name;
-        $opposingPokemon = $pokemon[1]->name;
+        $selectedPokemon = $pokemon[0]->getName();
+        $opposingPokemon = $pokemon[1]->getName();
         header("Location: ./fight.php");
     }
 
     function choosePokemon2(){
         global $pokemon;
-        $selectedPokemon = $pokemon[1]->name;
-        $opposingPokemon = $pokemon[0]->name;
+        $selectedPokemon = $pokemon[1]->getName();
+        $opposingPokemon = $pokemon[0]->getName();
         header("Location: ./fight.php");
     }
 
@@ -56,9 +56,9 @@
     <form method="post" id="pokemonSelection">
         <h1>Choose your pokemon</h1>
         <input type="submit" name="choosePokemon1"
-        class="button" value="<?= $pokemon[0]->name ?>" />
+        class="button" value="<?= $pokemon[0]->getName() ?>" />
         <input type="submit" name="choosePokemon2"
-        class="button" value="<?= $pokemon[1]->name ?>" />
+        class="button" value="<?= $pokemon[1]->getName() ?>" />
     </form>
 </body>
 </html>
