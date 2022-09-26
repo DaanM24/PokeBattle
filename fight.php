@@ -11,40 +11,25 @@
         getPopulation();
     }
 
+    //retrieves number of alive pokemon
     function getPopulation(){
         global $pokemonAmount;
         global $pokemon;
         global $pokemonPopulation;
-        for($i = 1; $i < $pokemonAmount; $i++){
-            if($pokemon[$i]->getHealth() > 0){
-                $pokemonPopulation++;
-            }
-        }
+        $pokemonPopulation = $pokemon[0]->getPopulation($pokemon);
         echo $pokemonPopulation;
         echo " pokemon alive. ";
     }
-
-    // if(array_key_exists('getPopulation', $_POST)) {
-    //     getPopulation();
-    // }
-
-    // function getPopulation(){
-    //     global $alivePokemon;
-    //     for($i = 0; $i < $alivePokemon; $i++){
-    //         echo "jos ";
-    //     }
-    // }
-
     
 
-    echo $pokemon[0]->getName(). " has ". $pokemon[0]->getHealth(). " hp. ". $pokemon[1]->getName(). " has ". $pokemon[1]->getHealth(). " hp. ";
-    echo $pokemon[0]->getName(). " used ". $pokemon[0]->getAttack1()->getName(). ". ";
+    echo $pokemon[0]->getName(). " has ". $pokemon[0]->getHealth(). " hp. </br>". $pokemon[1]->getName(). " has ". $pokemon[1]->getHealth(). " hp. </br>";
+    echo $pokemon[0]->getName(). " used ". $pokemon[0]->getAttack1()->getName(). ". </br>";
     $pokemon[1]->takeDamage($pokemon[0]->getAttack1()->getDamage(), $pokemon[0]->getAttack1()->getEnergyType());
-    echo $pokemon[1]->getName(). " has ". $pokemon[1]->getHealth(). " hp. ";
-    echo $pokemon[1]->getName(). " used ". $pokemon[1]->getAttack1()->getName(). ". ";
+    echo $pokemon[1]->getName(). " now has ". $pokemon[1]->getHealth(). " hp. </br>";
+    echo $pokemon[1]->getName(). " used ". $pokemon[1]->getAttack1()->getName(). ". </br>";
     $pokemon[0]->takeDamage($pokemon[1]->getAttack1()->getDamage(), $pokemon[1]->getAttack1()->getEnergyType());
-    echo $pokemon[0]->getName(). " now has ". $pokemon[0]->getHealth(). " hp. ";
-    echo $pokemon[0]->getName(). " used ". $pokemon[0]->getAttack1()->getName(). ". ";
+    echo $pokemon[0]->getName(). " now has ". $pokemon[0]->getHealth(). " hp. </br>";
+    echo $pokemon[0]->getName(). " used ". $pokemon[0]->getAttack1()->getName(). ". </br>";
     $pokemon[1]->takeDamage($pokemon[0]->getAttack1()->getDamage(), $pokemon[0]->getAttack1()->getEnergyType());
 
     if($pokemon[0]->getHealth() < 0){
@@ -53,32 +38,9 @@
         $pokemon[1]->setHealth(0);
     }
     
-    echo $pokemon[1]->getName(). " has ". $pokemon[1]->getHealth(). " hp. ";
-    echo $pokemon[1]->getName(). " has fainted. ". $pokemon[0]->getName(). " has won the duel!";
+    echo $pokemon[1]->getName(). " now has ". $pokemon[1]->getHealth(). " hp. </br>";
+    echo $pokemon[1]->getName(). " has fainted. </br>". $pokemon[0]->getName(). " has won the duel!";
 
-
-    // $pokemon[0]->getAttack1()->getDamage() = $pokemon[0]->getAttack1()->getDamage() - $pokemon[1]->getResistance()->getValue();
-    // $pokemon[1]->getHealth() = $pokemon[1]->getHealth() - $pokemon[0]->getAttack1()->getDamage();
-    // $pokemon[0]->getAttack1()->getDamage() = $pokemon[0]->getAttack1()->getDamage() + $pokemon[1]->getResistance()->getValue();
-    // echo $pokemon[1]->getName(). " now has ". $pokemon[1]->getHealth(). " hp. ";
-    // echo $pokemon[1]->getName(). " used ". $pokemon[1]->getAttack1()->getName(). ". ";
-    // $pokemon[0]->getHealth() = $pokemon[0]->getHealth() - $pokemon[1]->getAttack1()->getDamage() * $pokemon[0]->weakness->multiplier;
-    // echo $pokemon[0]->getName(). " now has ". $pokemon[0]->getHealth(). " hp. ";
-    // echo $pokemon[0]->getName(). " used ". $pokemon[0]->getAttack1()->getName(). ". ";
-    // $pokemon[0]->getAttack1()->getDamage() = $pokemon[0]->getAttack1()->getDamage() - $pokemon[1]->getResistance()->getValue();
-    // $pokemon[1]->getHealth() = $pokemon[1]->getHealth() - $pokemon[0]->getAttack1()->getDamage();
-    // $pokemon[0]->getAttack1()->getDamage() = $pokemon[0]->getAttack1()->getDamage() + $pokemon[1]->getResistance()->getValue();
-    // echo $pokemon[1]->getName(). " now has ". $pokemon[1]->getHealth(). " hp. ";
-    // echo $pokemon[1]->getName(). " has fainted. ". $pokemon[0]->getName(). " has won the duel!";
-    // $alivePokemon--;
-
-    
-
-    
-
-    //<?php if($selectedPokemon == $pokemon[0]->getName()){
-    //<?php }else if($selectedPokemon == $pokemon[1]->getName()){ 
-    //<?php } 
 ?>
 
 
@@ -90,7 +52,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta getName()="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ik ben gewoon koel</title>
+    <title>PokeBattle</title>
     </head>
     <body>
     <form method="post">

@@ -1,15 +1,15 @@
 <?php
+    //Master class for all pokemon
     class pokemon{
-        private $name;
         private $energyType;
         private $hitpoints;
-        public $health;
+        private $health;
         private $attack1;
         private $attack2;
         private $weakness;
         private $resistance;
-        public function __construct($name, $energyType, $hitpoints, $health, $attack1, $attack2, $weakness, $resistance){
-            $this->name = $name;
+        static private $population = 2;
+        public function __construct($energyType, $hitpoints, $health, $attack1, $attack2, $weakness, $resistance){
             $this->energyType = $energyType;
             $this->hitpoints = $hitpoints;
             $this->health = $health;
@@ -21,120 +21,31 @@
         public function __toString() {
             return json_encode($this);
         }
-        public function getName() {
-            return $this->name;
-        }
-        public function getEnergyType() {
-            return $this->energyType;
-        }
-        public function getHitpoints() {
-            return $this->hitpoints;
-        }
-        public function getHealth() {
-            return $this->health;
-        }
-        public function getAttack1() {
-            return $this->attack1;
-        }
-        public function getAttack2() {
-            return $this->attack2;
-        }
-        public function getWeakness() {
-            return $this->weakness;
-        }
-        public function getResistance() {
-            return $this->resistance;
-        }
+
+        //function that calculates damage taken based on weakness/resistance and subtracts that amount from the pokemon's health
         public function takeDamage($enemyAttackDamage, $enemyAttackType) {
             global $takenDamage;
             if($this->getResistance()->getEnergyType() == $enemyattackType){
                 $takenDamage = $enemyAttackDamage - $this->getResistance()->getValue();
-                $this->health = $this->health - $takenDamage;
+                $newHealth = $this->getHealth() - $takenDamage;
             }else if($this->getWeakness()->getEnergyType() == $enemyAttackType){
                 $takenDamage = $enemyAttackDamage * $this->getWeakness()->getMultiplier();
-                $this->health = $this->health - $takenDamage;
+                $newHealth = $this->getHealth() - $takenDamage;
             }else{
-                $this->health = $this->health - $enemyAttackDamage;
+                $takenDamage = $enemyAttackDamage;
+                $newHealth = $this->getHealth() - $takenDamage;
             }
+            $this->setHealth($newHealth);
         }
-        // public function setName($newName) {
-        //     $this->name = $newName;
-        // }
-        public function setHealth($newHealth){
-            $this->health = $newHealth;
-        }
-    }
 
-    class attack{
-        private $name;
-        private $damage;
-        private $energyType;
-        public function __construct($name, $damage, $energyType){
-            $this->name = $name;
-            $this->damage = $damage;
-            $this->energyType = $energyType;
-        }
-        public function __toString() {
-            return json_encode($this);
-        }
-        public function getName(){
-            return $this->name;
-        }
-        public function getDamage(){
-            return $this->damage;
-        }
-        public function getEnergyType(){
-            return $this->energyType;
-        }
-    }
-
-    class EnergyType{
-        private $name;
-        public function __construct($name){
-            $this->name = $name;
-        }
-        public function __toString(){
-            return json_encode($this);
-        }
-        public function getName(){
-            return $this->name;
-        }
-    }
-
-    class weakness{
-        private $energyType;
-        private $multiplier;
-        public function __construct($energyType, $multiplier){
-            $this->energyType = $energyType;
-            $this->multiplier = $multiplier;
-        }
-        public function __toString() {
-            return json_encode($this);
-        }
-        public function getEnergyType(){
-            return $this->energyType;
-        }
-        public function getMultiplier(){
-            return $this->multiplier;
-        }
-        
-    }
-
-    class resistance{
-        private $energyType;
-        private $value;
-        public function __construct($energyType, $value){
-            $this->energyType = $energyType;
-            $this->value = $value;
-        }
-        public function __toString() {
-            return json_encode($this);
-        }
-        public function getEnergyType(){
-            return $this->energyType;
-        }
-        public function getValue(){
-            return $this->value;
+        //counts the amount of alive pokemon
+        public function getPopulation($data){
+            for($i = 1; $i < count($data); $i++){
+                if($data[$i]->getHealth() > 0){
+                    $pokemonPopulation++;
+                }
+            }
+            return $pokemonPopulation;
         }
     }
 
